@@ -1,4 +1,4 @@
-# CPU vs GPU Vector Addition Benchmark — Common Lisp
+# cl-gpu-example: CPU vs GPU Vector Addition Benchmark — Common Lisp
 
 CPU vs GPU vector addition (100 million single-floats) in Common Lisp, using CFFI to call CUDA via a shared library.
 
