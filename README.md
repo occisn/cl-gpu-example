@@ -4,6 +4,13 @@ CPU vs GPU vector addition (100 million single-floats) in Common Lisp, using CFF
 
 Prepared with the help of Claude Code.
 
+## Results
+
+| Version | Time (s) | Speedup |
+|---------|----------|---------|
+| CPU     | 0.6207   | 1×      |
+| GPU     | 0.0168   | ~37×    |
+
 ## Architecture
 
 ```
@@ -56,18 +63,6 @@ Run `make` from within WSL2, not from Windows cmd/PowerShell.
 
 `--dynamic-space-size 4096` is set in the Makefile because the benchmark allocates 3 arrays of 100M single-floats (~1.2 GB), exceeding SBCL's default 1 GB heap.
 
-## Expected Results
-
-```
-=== CPU RESULTS ===
-Time taken: 0.2-1.0 seconds
-
-=== GPU RESULTS ===
-Time taken: 0.01-0.05 seconds
-
-Speedup: 10-50x
-```
-
 ## Bash usage
 
 ```bash
@@ -90,8 +85,6 @@ sbcl --dynamic-space-size 4096 --non-interactive \
   --eval '(cl-gpu:SHOW-gpu-vector-add)'
 ```
        
-       
-
 ## REPL Usage
 
 From an interactive SBCL session (started with `sbcl --dynamic-space-size 4096`):
@@ -111,3 +104,5 @@ From an interactive SBCL session (started with `sbcl --dynamic-space-size 4096`)
 - GPU version uses `cffi:foreign-alloc` for host arrays (required for CUDA memcpy compatibility)
 - `with-cuda-memory` and `with-cuda-timing` macros provide clean resource management with `unwind-protect`
 - All CUDA bindings are exported from the `:cl-gpu` package for reuse with custom kernels
+
+## end of file
